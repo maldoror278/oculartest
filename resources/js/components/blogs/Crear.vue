@@ -55,9 +55,27 @@
                             </div>
                         </div>
 
-                      <button type="submit" class="btn btn-success">Crear</button>
-                      <router-link to="/blogs" class="btn btn-danger">Cancelar</router-link>
+                         <div class="row">
+                           <div class="col-12">
+                             <div class="form-group">
+                             <label> Categoria</label>
 
+                             <select class="form-select" v-model="blog.seccion">
+                             <option v-for="cat in categorias" :key="cat.id">
+                                 {{ cat.seccion }}
+                             </option>
+                             </select>
+
+                             </div>
+                           </div>
+                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success">Crear</button>
+                            <router-link to="/blogs" class="btn btn-danger">Cancelar</router-link>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -73,19 +91,25 @@ export default {
     data(){
         return {
             blog:{},
-            errors:{}
+            errors:{},
+            categorias : []
         }
     },
+    mounted(){
+           this.axios.get('http://127.0.0.1:8000/api/allcategoria')
+           .then((res) =>{ this.categorias = res.data })
+           .catch((err) => {console.log(err)});
+         },
     methods:{
-       crear(){
-            this.axios.post('http://localhost:8000/api/blog',this.blog)
-              .then((res) => this.$router.push({name:'blogs'}))
-              .catch((err) => {
-                 if(err.response.status === 422)
-                  {
-                    this.errors = err.response.data.errors
-                  }
-               });
+        crear(){
+             this.axios.post('http://localhost:8000/api/blog', this.blog)
+               .then((res) => this.$router.push({name:'blogs'}))
+               .catch((err) => {
+                  if(err.response.status === 422)
+                   {
+                     this.errors = err.response.data.errors
+                   }
+                });
         }
     }
 }

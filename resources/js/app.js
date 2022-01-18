@@ -18,6 +18,10 @@ import Login from './pages/login.vue';
 import Blogs from './components/blogs/blogs.vue';
 import Crear from './components/blogs/Crear.vue';
 import Editar from './components/blogs/Editar.vue';
+import Detalle from './components/blogs/Detalle/GetAllDetalle.vue';
+import CrearDetalle from './components/blogs/Detalle/CrearDetalle.vue';
+import Categoria from './components/Categorias.vue';
+
 
 const router = new VueRouter({
   mode: 'history',
@@ -51,6 +55,21 @@ const router = new VueRouter({
       name: 'admin',
       path: '/miblog/admin',
       component: Blogs
+    },
+    {
+      name: 'detalle',
+      path: '/miblog/admin/detalle/:id',
+      component: Detalle
+    },
+    {
+      name: 'crearDetalle',
+      path: '/miblog/admin/detalle/crear',
+      component: CrearDetalle
+    },
+    {
+        name: 'categoria',
+        path: '/miblog/admin/categoria',
+        component: Categoria
       }
   ]
 });

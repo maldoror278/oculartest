@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
 
-
         public function login(Request $request)
         {
-            //  $credentials = [
-            //      'usuario'    => $request->usuario,
-            //      'password' => $request->password,
-            //  ];
-
-             if ( $request->usuario === 'admin' && $request->password === 'admin'  ) {
+            if ( $request->usuario === 'admin' && $request->password === 'admin'  ) {
                  $success = true;
                  $message = 'Logeado Satisfaactoriamente!';
              } else {
@@ -23,7 +18,6 @@ class UserController extends Controller
                  $message = 'No Autorizado';
              }
 
-            // response
             $response = [
                 'success' => $success,
                 'message' => $message

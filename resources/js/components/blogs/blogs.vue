@@ -1,6 +1,10 @@
 <template>
   <main>
-   <router-link to="/nuevoBlog" class="btn btn-success">Nuevo</router-link>
+    <h2>Listado General de Blogs </h2>
+   <div class="mb-2">
+     <router-link to="/nuevoBlog" class="btn btn-success">Nuevo Blog</router-link>
+     <router-link to="/miblog/admin/categoria" class="btn btn-success"> + categoria</router-link>
+   </div>
     <div class="col-12">
     <table class="table table-striped">
       <thead>
@@ -8,9 +12,8 @@
          <th scope="col"> Id</th>
          <th scope="col"> Titulo</th>
          <th scope="col"> Resumen</th>
-         <th scope="col"> Contenido</th>
          <th scope="col"> Autor</th>
-         <th scope="col"> Creación</th>
+         <th scope="col"> Categoria </th>
         </tr>
       </thead>
       <tbody>
@@ -18,14 +21,13 @@
              <td>{{ blog.id }}</td>
              <td>{{ blog.titulo }}</td>
              <td>{{ blog.resumen }}</td>
-             <td col-4>{{ blog.contenido }}</td>
              <td>{{ blog.autor }}</td>
-             <td>{{ blog.created_at }}</td>
-           <td>
+             <td>{{ blog.seccion }}</td>
+             <td>
              <router-link :to="{name: 'editarBlog', params: {id: blog.id}}" class="btn btn-success"> Edit </router-link>
+             <router-link :to="{name: 'detalle', params: {id: blog.id}}" class="btn btn-primary"> Publicaciones </router-link>
              <button @click="borrarBlog(blog.id)" class="btn btn-danger">Eliminar</button>
-             <button @click="showAlert(blog)" class="btn btn-info">Detalle</button>
-           </td>
+            </td>
           </tr>
       </tbody>
     </table>
@@ -50,11 +52,11 @@ export default {
         this.axios.get('http://localhost:8000/api/blog?page=' + page)
         .then(response => {
             this.blogs = response.data;
-             console.log(response);
+             console.log(this.blogs);
             }).catch((err) => console.log(err));
         },
         borrarBlog(id){
-           if(this.$swal('¿Esta usted seguro de realizar esta acción?')){
+           if(confirm('¿Esta usted seguro de realizar esta acción?')){
                this.axios.delete(`http://localhost:8000/api/blog/${id}`)
                .then(
                    response =>{
@@ -63,18 +65,9 @@ export default {
               })
            }
         },
-        showAlert(blog) {
-          this.$swal(
-              `
-                Datos de Publicación
-                Titulo    : ${blog.titulo}
-                Contenido : ${blog.contenido}
-                Resumen   : ${blog.resumen}
-                Autor     : ${blog.autor}
-                Creación  : ${blog.created_at}
-              `
-              );
+        DetalleBlog(){
+               this.$router.push({name:'detalle'})
         }
-    }
+     }
 }
 </script>

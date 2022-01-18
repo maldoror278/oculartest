@@ -12,8 +12,7 @@ class BlogController extends Controller
     {
         $blogs = blog::orderBy('created_at','DESC')->paginate(5);
         return response()->json($blogs);
-     }
-
+    }
 
     public function store(Request $request)
     {
@@ -21,7 +20,8 @@ class BlogController extends Controller
             'titulo' => 'required',
             'contenido' => 'required',
             'resumen' => 'required',
-            'autor' => 'required'
+            'autor' => 'required',
+            'seccion' => 'required',
         ]);
 
         $blog = blog::create($request->post());

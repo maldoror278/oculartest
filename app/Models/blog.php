@@ -12,6 +12,7 @@ class blog extends Model
         'titulo',
         'contenido',
         'resumen',
-        'autor'
+        'autor',
+        'seccion'
     ];
 }
